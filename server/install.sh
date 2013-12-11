@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-vagrant suspececho ">>> Starting Install Script"
+echo ">>> Starting Install Script"
 
 # Update
 sudo apt-get update
