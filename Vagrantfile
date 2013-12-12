@@ -14,6 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   config.vm.synced_folder "./", "/var/www", :nfs => false
+  #, mount_options: [dmode=777,fmode=777]
 
 config.vm.provider :virtualbox do |virtualbox|
     virtualbox.customize ["modifyvm", :id, "--memory", "1024"]

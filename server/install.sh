@@ -11,7 +11,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 echo ">>> Installing Base Items"
 
 # Install base items
-sudo apt-get install -y vim curl wget build-essential python-software-properties
+sudo apt-get install -y vim curl wget build-essential python-software-properties mysql-server
 
     # echo ">>> Installing latest, greatest PHP"
     # sudo add-apt-repository -y ppa:ondrej/php5 # php5.5
@@ -23,7 +23,7 @@ sudo apt-get install -y vim curl wget build-essential python-software-properties
 sudo apt-get update
 
 # Installing extra php
-sudo apt-get install -y php5 php5-mysql php5-curl php5-gd php5-mcrypt mysql-server
+sudo apt-get install -y php5 php5-mysql php5-curl php5-gd php5-mcrypt
 
     # apache
     # echo ">>> Installing apache2"
@@ -49,6 +49,12 @@ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" $inifolder/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" $inifolder/php.ini
 sed -i "s/upload_max_filesize = .*/upload_max_filesize =20M/" $inifolder/php.ini
 sed -i "s/post_max_size = .*/post_max_size = 20M/" $inifolder/php.ini
+
+# MySQL Config
+echo ">>> Configuring MySQL"
+sudo sed -i "s/bind-address.*/#bind-address        = 127.0.0.1/" /etc/mysql/my.cnf
+mysql -u root -ppassword < /vagrant/server/database.sql
+sudo service mysql restart
 
 #sudo service apache2 restart
 sudo service nginx restart
